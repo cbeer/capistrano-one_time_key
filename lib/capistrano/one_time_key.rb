@@ -34,7 +34,7 @@ module Capistrano
 
       at_exit do
         # remove dirname locally
-        FileUtils.remove_entry Capistrano::OneTimeKey.temporary_ssh_private_key_path
+        FileUtils.remove_entry Capistrano::OneTimeKey.tmpdir
         on roles(:all) do |host|
           Capistrano::OneTimeKey.remove_key_from_host host, public_key
         end
@@ -60,4 +60,4 @@ module Capistrano
 end
 
 
-load File.expand_path("../one_time_key/tasks/one_time_key.rake", __FILE__)
+load File.expand_path("../tasks/one_time_key.rake", __FILE__)
