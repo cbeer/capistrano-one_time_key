@@ -50,7 +50,7 @@ module Capistrano
     end
 
     def self.remove_key_from_host capistrano_host, public_key
-      execute_on_remote capistrano_host, "sed -i.bak -e '/#{comment}$/d' ~/.ssh/authorized_keys && rm ~/.ssh/authorized_keys.bak"
+      execute_on_remote capistrano_host, "sed -i.bak -e '/#{comment}$/d' -e '/^$/d' ~/.ssh/authorized_keys && rm ~/.ssh/authorized_keys.bak"
     end
 
     def self.execute_on_remote capistrano_host, command
