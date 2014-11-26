@@ -10,7 +10,7 @@ module Capistrano
     end
 
     def self.temporary_ssh_private_key_path
-      File.join(tmpdir, "capistrano_key")
+      @key_path ||= File.join(tmpdir, "capistrano_key")
     end
 
     def self.comment
@@ -50,7 +50,7 @@ module Capistrano
     end
 
     def self.remove_key_from_host capistrano_host, public_key
-      execute_on_remote capistrano_host, "sed -i.bak -e '/#{comment}$/d' -e '/^$/d' ~/.ssh/authorized_keys && rm ~/.ssh/authorized_keys.bak"
+      execute_on_remote capistrano_host, "sed -i.bak -e '/#{comment}$/d' -e '/^\s*$/d' ~/.ssh/authorized_keys && rm ~/.ssh/authorized_keys.bak"
     end
 
     def self.execute_on_remote capistrano_host, command
