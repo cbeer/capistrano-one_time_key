@@ -24,7 +24,12 @@ In your Capfile, require the gem:
 
 And in your deploy stage, after you register servers and services, create the one time keys:
 
+    server ENV['HOST'], user: ENV['USER'], roles: %w{app}
     Capistrano::OneTimeKey.generate_one_time_key!
+    # Optional modification of ssh options.
+    ssh_opts = fetch(:ssh_options)
+    ssh_opts[:forward_agent] = true
+    ssh_opts[:verbose] = false
 
 ## Contributing
 
