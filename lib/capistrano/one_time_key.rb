@@ -18,14 +18,14 @@ module Capistrano
     end
 
     def self.generate_private_key!
-      `ssh-keygen -f #{temporary_ssh_private_key_path} -N "" -C "#{comment}"`
+      `ssh-keygen -m PEM -f #{temporary_ssh_private_key_path} -N "" -C "#{comment}"`
       return temporary_ssh_private_key_path
     end
-    
+
     def self.generate_one_time_key!
-      
+
       path = generate_private_key!
-      
+
       public_key = File.read("#{path}.pub")
 
       on roles(:all) do |host|
@@ -38,7 +38,7 @@ module Capistrano
         on roles(:all) do |host|
           Capistrano::OneTimeKey.remove_key_from_host host, public_key
         end
-      end 
+      end
     end
 
     def self.add_key_to_host capistrano_host, public_key
