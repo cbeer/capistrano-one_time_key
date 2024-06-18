@@ -23,7 +23,10 @@ module Capistrano
     end
 
     def self.generate_one_time_key!
+      # This is a no-op because it's called everywhere.
+    end
 
+    def self.use_one_time_key!
       path = generate_private_key!
 
       public_key = File.read("#{path}.pub")
