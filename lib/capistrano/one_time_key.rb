@@ -18,7 +18,7 @@ module Capistrano
     end
 
     def self.generate_private_key!
-      `ssh-keygen -m PEM -f #{temporary_ssh_private_key_path} -N "" -C "#{comment}"`
+      `ssh-keygen -f #{temporary_ssh_private_key_path} -N "" -C "#{comment}"`
       return temporary_ssh_private_key_path
     end
 
